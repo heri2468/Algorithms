@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include<string.h>
+const int Max = 256;
+int fnHorspool(char string[], char pattern[],int []);
+void fnGenShiftTable(char *,int []);
+
+int main()
+{
+    char text[Max];
+    char pattern[Max];
+    int shiftTable[Max];
+    int found;
+    puts("\nEnter the source string\n");
+    gets(text);
+    puts("\nEnter the pattern \n");
+    gets(pattern);
+    fnGenShiftTable(pattern,shiftTable);
+    found = fnHorspool(text,pattern,shiftTable);
+    if(found==-1)
+       puts("\nMatching Substring not found.\n");
+    else
+       printf("\nMatching Substring found at position: %d\n",found+1);
+    return 0;
+}
+void fnGenShiftTable(char pattern[], int table[])
+{
+    int length, i, j;
+    length = strlen(pattern);//length of pattern
+    for(i=0; i<Max; i++)
+        {
+            table[i]=length;// storing length of pattern in table to shift the values
+        }
+        for(j=0; j<length-1; j++)
+            {
+                table[(unsigned int)pattern[j]] = length-1-j;
+            }
+ }
+ int fnHorspool(char string[],char pattern[],int table[])
+ {
+     int i, lens, lenp, k;
+     lens = strlen(string);//length of string
+     lenp = strlen(pattern);//length of pattern
+     i = lenp-1;//position of pattern's right end
+     while(i<lens)
+        {
+            k = 0;//no of matched characters
+     while((k<lenp)&&(pattern[lenp-1-k]==string[i-k]))
+        k++;
+     if (k == lenp)
+        return i-lenp+1;
+     else
+        i = i+table[(unsigned int)string[i]];
+        }
+ return -1;
+}
+
