@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+#include<iostream>
+int main()
+{
+int arr[10];
+int n;
+cout<<"Enter size of array\n";
+cin>>n;
+cout<<"Enter array elements\n";
+for(int i=0;i<n;i++)
+cin>>arr[i];
+int max = arr[0];
+int maxsofar = arr[0];
+for(int i=0; i<n;i++)
+{
+maxsofar = max(maxsofar,maxsofar+arr[i]);
+if(maxsofar>max)
+max = maxsofar;
+}
+cout<<max<endl;
+return 0;
+}
